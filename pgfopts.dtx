@@ -1,0 +1,647 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2008 by
+%    Joseph Wright <joseph.wright@morningstar2.co.uk>
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either
+% version 1.3c of this license or (at your option) any later
+% version. The latest version of this license is in
+%    http://www.latex-project.org/lppl.txt
+% and version 1.3c or later is part of all distributions of
+% LaTeX version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The current maintainer of this work is Joseph Wright.
+%
+% This work consists of the source file pgfopts.dtx
+%                 and the derived files pgfopts.ins,
+%                                       pgfopts.sty,
+%                                       pgfopts.pdf,
+%                                       pgfopts-manual.pdf,
+%                                       jawltxdoc.sty and
+%                                       README
+%
+% TDS-ready files:
+%    The compressed file pgfopts.tds.zip contains an unpacked version
+%    of all of the files included here, and pre-compiled
+%    documentation in PDF format.  Simply decompress pgfopts.tds.dtx
+%    in your local TeX directory, run your hash program (texhash,
+%    initexmf --update-fndb, etc.) and everything will be ready to
+%    go.  The user documentation for the package is called
+%    pgfopts-manual.pdf; the file pgfopts.pdf includes the user
+%    manual and the fully-indexed source code.
+%
+% Unpacking:
+%    (a) If pgfopts.ins is present:
+%           tex pgfopts.ins
+%    (b) Without pgfopts.ins:
+%           tex pgfopts.dtx
+%    (c) If you use LaTeX to generate files:
+%           latex \let\install=y\input{pgfopts.dtx}
+%
+% Documentation:
+%    (a) Without write18 enabled:
+%          pdflatex pgfopts.dtx
+%          makeindex -s gind.ist pgfopts.idx
+%          makeindex -s gglo.ist -o pgfopts.gls  pgfopts.glo
+%          pdflatex pgfopts.dtx
+%          pdflatex pgfopts.dtx
+%    (b) With write18 enabled:
+%          pdflatex pgfopts.dtx
+%          pdflatex pgfopts.dtx
+%          pdflatex pgfopts.dtx
+%
+% Installation:
+%     Copy pgfopts.sty to a location searched by TeX, and if required
+%     by your TeX installation, run the appropriate command to build
+%     a hash of files (texhash, initexmf --update-fndb, etc.)
+%
+% Note:
+%     The jawltxdoc.sty file is not needed for installation,
+%     only for building the documentation; it may be deleted
+%     after producing the documentation (if necessary).
+%
+%<*ignore>
+% This is all taken verbatim from Heiko Oberdiek's packages
+\begingroup
+  \def\x{LaTeX2e}%
+\expandafter\endgroup
+\ifcase 0\ifx\install y1\fi\expandafter
+         \ifx\csname processbatchFile\endcsname\relax\else1\fi
+         \ifx\fmtname\x\else 1\fi\relax
+\else\csname fi\endcsname
+%</ignore>
+%<*install>
+\input docstrip.tex
+\keepsilent
+\askforoverwritefalse
+\preamble
+ --------------------------------------------------------------
+ The pgfopts package --- LaTeX package options with pgfkeys
+ Maintained by Joseph Wright
+ E-mail: joseph.wright@morningstar2.co.uk
+ Released under the LaTeX Project Public License v1.3 or later
+ See http://www.latex-project.org/lppl.txt
+ --------------------------------------------------------------
+
+\endpreamble
+\Msg{Generating pgfopts files:}
+\generate{\file{jawltxdoc.sty}{\from{\jobname.dtx}{jawltxdoc}}
+}
+\usedir{tex/latex/pgfopts}
+\generate{\file{\jobname.sty}{\from{\jobname.dtx}{package}}
+}
+\usedir{source/latex/pgfopts}
+\generate{\file{\jobname.ins}{\from{\jobname.dtx}{install}}
+}
+\nopreamble\nopostamble
+\usedir{doc/latex/pgfopts}
+\generate{\file{README.txt}{\from{\jobname.dtx}{readme}}
+}
+\endbatchfile
+%</install>
+%<*readme>
+---------------------------------------------------------------
+The pgfopts package --- LaTeX package options with pgfkeys
+Maintained by Joseph Wright
+E-mail: joseph.wright@morningstar2.co.uk
+Released under the LaTeX Project Public License v1.3c or later
+See http://www.latex-project.org/lppl.txt
+---------------------------------------------------------------
+
+Using key-value options for packages and macros is a good way
+of handling large numbers of options with a clean interface.
+The pgfkeys package provides a very well designed system for
+defining and using keys, but does not make this available for
+handling LaTeX class and package options.  The pgfopts package
+adds this ability to pgfkeys, in the same way that kvoptions
+extends the keyval package.
+
+%</readme>
+%<*ignore>
+\fi
+% Will Robertson's trick
+\immediate\write18{makeindex -s gind.ist -o \jobname.ind  \jobname.idx}
+\immediate\write18{makeindex -s gglo.ist -o \jobname.gls  \jobname.glo}
+%</ignore>
+%<*driver>
+\PassOptionsToClass{a4paper}{article}
+\documentclass[german,english,UKenglish]{ltxdoc}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+%\OnlyDescription
+\usepackage{jawltxdoc}
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+%\CheckSum{220}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+% \GetFileInfo{\jobname.sty}
+%
+%\changes{v1.0}{2008/06/26}{First public release}
+%
+%\setkeys{lst}{language=[LaTeX]{TeX},moretexcs={pgfkeys,
+%  ProcessPgfOptions,pgfkeyscurrentname,pgfkeyscurrentvalue}}
+%
+%\DoNotIndex{\.,\/,\:,\=,\@classoptionslist,\@clsextension}
+%\DoNotIndex{\@currext,\@currname,\@empty,\@expandtwoargs,\@for}
+%\DoNotIndex{\@ifstar,\@ifundefined,\@makeother,\@nil,\@onlypreamble}
+%\DoNotIndex{\@removeelement,\@tempa,\@unprocessedoptions}
+%\DoNotIndex{\@unusedoptionlist,\AtEndOfPackage,\begingroup}
+%\DoNotIndex{\catcode,\csname,\CurrentOption,\def,\do,\edef}
+%\DoNotIndex{\else,\endcsname,\endgroup,\expandafter,\fi}
+%\DoNotIndex{\gdef,\global,\ifx,\let,\newcommand,\noexpand}
+%\DoNotIndex{\NeedsTeXFormat,\pgfkeys,\pgfkeysifdefined}
+%\DoNotIndex{\ProvidesPackage,\relax,\RequirePackage,\space}
+%\DoNotIndex{\string,\the,\toks@}
+%
+% \title{\currpkg\ --- \LaTeX\ package options with pgfkeys^^A
+%   \thanks{This file describes version \fileversion, last revised
+%           \filedate.}}
+% \author{Joseph Wright^^A
+%   \thanks{E-mail: joseph.wright@morningstar2.co.uk}}
+% \date{Released \filedate}
+%
+% \maketitle
+%
+%\begin{abstract}
+% Using key--value options for packages and macros is a good way of
+% handling large numbers of options with a clean interface. The
+% \pkg{pgfkeys} package provides a very well designed system for
+% defining and using keys, but does not make this available for
+% handling \LaTeX\ class and package options.  The \currpkg package
+% adds this ability to \pkg{pgfkeys}, in the same way that
+% \pkg{kvoptions} extends the \pkg{keyval} package.
+%\end{abstract}
+%
+%\begin{multicols}{2}
+%\tableofcontents
+%\end{multicols}
+%
+%\section{Introduction}
+% The key--value method for optional arguments is very popular, as it
+% allows the class or package author to define a large number of
+% options with a simple interface.  A number of packages can be used
+% to provide the key management system, most of which load or extent
+% the parent \pkg{keyval} package.  On its own, \pkg{keyval} can only
+% be used for parsing the arguments of macros.  However, a number of
+% packages have extended the method to processing \LaTeX\ class and
+% package options.  This processing is made available as part of two
+% general-purpose packages \pkg{xkeyval} and \pkg{kvoptions}; both
+% allow the author of a class or package to process key--value
+% options given at load-time.
+%
+% The \pkg{pgfkeys} package provides a somewhat different key--value
+% system to \pkg{keyval} and derivatives.  This uses a completely
+% different model for defining and using keys, although for the
+% end-user the result appears very similar.  The \currpkg package
+% allows keys defined with \pkg{pgfkeys} to be used as class or
+% package options, in the same way that \pkg{kvoptions} extends
+% \pkg{keyval}.
+%
+% Users of \currpkg should be familiar with the general methods used
+% by \pkg{pgfkeys}.  These are outlined in the manual for the
+% Ti\emph{k}z and \pkg{pgf} bundle.
+%
+%\section{Using the package}
+%\subsection{Creating options}
+% To create package or class options for use with \currpkg, it is
+% only necessary to define the appropriate keys.  Taking as an
+% example a package ``\pkg{MyOwnPackage}'', which uses the prefix
+% \texttt{MOP} on internal macros, creating keys would take the form:
+%\begin{LaTeXexample}[noexample]
+%  \pgfkeys{/MOP/.cd,
+%    keyone/.code=\wlog{Value `#1' given},
+%    keytwo/.store in=\MOP@store}
+%\end{LaTeXexample}
+% Here, \opt{keyone} simply writes its argument to the log, while
+% \opt{keytwo} stores the value given in the \cs{MOP@store} macro.
+%
+% An important point to notice is that the key names \emph{do not}
+% contain a space. This is because the \LaTeX\ kernel removes spaces
+% from options before they are passed to the class or package. Spaces
+% can occur in the path to the key, but not in the key name itself.
+% This restriction only applies to keys used as options.
+%
+%\subsection{Processing options}
+%\DescribeMacro{\ProcessPgfOptions}
+% Options should be processed using the \cs{ProcessPgfOptions} macro,
+% which takes two forms.  When invoked followed by a star, the system
+% will use the name of the current file as the key path.  Thus, for
+% the example \pkg{MyOwnPackage.sty}, \currpkg would use the path
+% \opt{/MyOwnPackage}.
+%\begin{LaTeXexample}[noexample]
+%  \ProcessPgfOptions*
+%\end{LaTeXexample}
+% When the key path does not match the current file name, the second
+% form of \cs{ProcessPgfOptions} should be used.  The full path to be
+% searched should be given as the argument to the macro.  Continuing
+% the example, for \pkg{MyOwnPackage.sty} using path \opt{/MOP}, the
+% correct call is:
+%\begin{LaTeXexample}[noexample]
+%  \ProcessPgfOptions{/MOP}
+%\end{LaTeXexample}
+% Notice that the \emph{full} path is given here, including the
+% leading ``|/|''; this allows the advance user to alter the default
+% path before calling \cs{ProcessPgfOptions}.
+%
+%\subsection{Specialised options}
+% Users of \pkg{kvoptions} will be aware that there are two types of
+% options which need specialised handling.  First, there is the need
+% to process options which should not be given a value. Using
+% \pkg{pgfkeys}, this is achieved using the \opt{.value forbidden}
+% handler.
+%\begin{LaTeXexample}[noexample]
+%  \pgfkeys{/MOP/.cd,
+%    keythree/.code=\wlog{keythree set},
+%    keythree/.value forbidden}
+%\end{LaTeXexample}
+%
+% The second type of specialist option is the unknown option.
+% Some packages accept arbitrary values in the options, which
+% can then be used to load configuration files, \etc.  Once
+% again, this is handled using correctly-defined keys.
+%\begin{LaTeXexample}[noexample]
+%  \pgfkeys{/MOP/.cd,
+%    .unknown/.code=\wlog{%
+%      The unknown key `\pgfkeyscurrentname' was given with
+%      value `\pgfkeyscurrentvalue'}}
+%\end{LaTeXexample}
+%
+% The power of the \pkg{pgfkeys} system is demonstrated here: no
+% additional macros are needed to handle the specialised option
+% types.
+%
+% \StopEventually{^^A
+%   \PrintChanges
+%   \PrintIndex}
+%
+% \iffalse
+%<*package>
+% \fi
+%
+% \section{Implementation}
+% The code here is based heavily on \pkg{kvoptions}, which has a
+% similar aim to \currpkg, but works with \pkg{keyval} and derived
+% packages.
+%
+%\begin{macro}{\pgfopts@id}
+% Macro naming follows the scheme used by \pkg{pgfkeys}: the full
+% package name is the prefix.
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}
+\newcommand*{\pgfopts@id}{}
+\def\pgfopts@id$#1: #2.#3 #4 #5-#6-#7 #8 #9${%
+    #5/#6/#7\space v1.0\space}
+\ProvidesPackage{pgfopts}
+  [\pgfopts@id $Id: pgfopts.dtx 30 2008-06-26 19:27:20Z joseph $
+   LaTeX package options with pgfkeys]
+%    \end{macrocode}
+%\end{macro}
+% The \pkg{pgfkeys} package is needed, unsurprisingly.
+%    \begin{macrocode}
+\RequirePackage{pgfkeys}
+%    \end{macrocode}
+%
+%\begin{macro}{\pgfopts@catcodes}
+% A few category codes are set correctly, to prevent odd
+% accidents.
+%    \begin{macrocode}
+\edef\pgfopts@catcodes{%
+  \catcode\string`\string ` \the\catcode\string`\`\relax
+  \catcode\string`\string = \the\catcode\string`\=\relax
+  \catcode\string`\string : \the\catcode\string`\:\relax
+  \catcode\string`\string , \the\catcode\string`\,\relax
+  \catcode\string`\string / \the\catcode\string`\/\relax
+  \catcode\string`\string . \the\catcode\string`\.\relax}
+\catcode\string`\` 12\relax
+\catcode`\= 12\relax
+\@makeother{\:}
+\@makeother{\,}
+\@makeother{\/}
+\@makeother{\.}
+%    \end{macrocode}
+%\end{macro}
+%
+%\begin{macro}{\ProcessPgfOptions}
+% The user macro for processing options may have a star.  In that
+% case, \cs{@currname} is used for setting keys.
+%    \begin{macrocode}
+\newcommand*{\ProcessPgfOptions}{%
+  \@ifstar
+    {\begingroup
+       \edef\@tempa{%
+         \endgroup
+         \noexpand\pgfopts@ProcessOptions
+           {/\@currname}}%
+     \@tempa}%
+    {\pgfopts@ProcessOptions}}
+\@onlypreamble\ProcessPgfOptions
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\pgfopts@temp}
+% A private storage area is needed by the next macro.
+%    \begin{macrocode}
+\newcommand*{\pgfopts@temp}{}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\pgfopts@ProcessOptions}
+%  \darg{path}
+% The business end of the package.  This is a modified copy of the
+% macro \cs{KVO@ProcessOptions} from \pkg{kvoptions}.  Some
+% simplifications are made due to the differences in key system, and
+% as patching the kernel is ignored.
+%    \begin{macrocode}
+\newcommand*{\pgfopts@ProcessOptions}[1]{%
+  \def\pgfopts@temp{,}%
+  \ifx\@currext\@clsextension\else
+    \ifx\@classoptionslist\relax\else
+%    \end{macrocode}
+%\begin{macro}{\pgfopts@CurrentOption}
+% For packages, the list of global (class) options needs to be
+% checked. The assumption is made that only \emph{explicitly}
+% declared keys will be accepted as options here. The strange
+% argument to \cs{pgfkeysifdefined} is needed as checking for the key
+% itself only works if it has already been used.
+%    \begin{macrocode}
+      \@for\pgfopts@CurrentOption:=\@classoptionslist\do{%
+        \pgfkeysifdefined{#1/\expandafter\pgfopts@sepkeyval%
+          \pgfopts@CurrentOption=\@nil/.@cmd}
+          {\edef\pgfopts@temp{%
+             \pgfopts@temp\pgfopts@CurrentOption,}%
+           \@expandtwoargs\@removeelement\pgfopts@CurrentOption
+             \@unusedoptionlist\@unusedoptionlist}%
+          {}}%
+    \fi
+  \fi
+%    \end{macrocode}
+%\end{macro}
+% Now the local options have to be processed.  If there are none,
+% then the global list is simply copied.  Otherwise, the local
+% options are first added to the ``to do'' list stored in \cs{toks@}.
+%    \begin{macrocode}
+  \begingroup
+    \@ifundefined{opt@\@currname.\@currext}
+      {\toks@\expandafter{\pgfopts@temp}}
+      {\toks@\expandafter\expandafter\expandafter{%
+         \csname opt@\@currname.\@currext\endcsname}%
+%    \end{macrocode}
+% There is work to do if processing options of a class; unknown options
+% from the global list have to be completely ignored.
+%    \begin{macrocode}
+       \ifx\@currext\@clsextension
+         \edef\@tempa{\the\toks@}%
+         \toks@\expandafter{\pgfopts@temp}%
+         \@for\CurrentOption:=\@tempa\do{%
+           \pgfkeysifdefined{#1/\expandafter%
+             \pgfopts@sepkeyval\CurrentOption=\@nil/.@cmd}
+             {\toks@\expandafter{\the\expandafter\toks@
+                \expandafter,\CurrentOption}}
+             {\ifx\@empty\@unusedoptionlist\@empty
+                \global\let\@unusedoptionlist\CurrentOption
+              \else
+                \expandafter\expandafter\expandafter\gdef
+                \expandafter\expandafter\expandafter
+                \@unusedoptionlist\expandafter\expandafter
+                \expandafter{%
+                  \expandafter\@unusedoptionlist
+                  \expandafter,\CurrentOption}%
+              \fi}}%
+%    \end{macrocode}
+% For packages, the two lists are simply combined.
+%    \begin{macrocode}
+      \else
+        \toks@\expandafter\expandafter\expandafter{%
+            \expandafter\pgfopts@temp\the\toks@}%
+      \fi}%
+%    \end{macrocode}
+% With everything done, the keys are sent to \pkg{pgfkeys} for
+% processing.  The default key system in \pkg{pgfkeys} is very
+% different from that in \pkg{kvoptions}, and so the system here is
+% much less complex.
+%    \begin{macrocode}
+    \edef\pgfopts@temp{\endgroup
+      \noexpand\pgfkeys{#1/.cd,\the\toks@}}%
+  \pgfopts@temp
+  \let\CurrentOption\@empty
+  \AtEndOfPackage{\let\@unprocessedoptions\relax}}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\pgfopts@sepkeyval}
+% A very simply macro to separate a key from a potential value.
+%    \begin{macrocode}
+\newcommand*{\pgfopts@sepkeyval}{}
+\def\pgfopts@sepkeyval#1=#2\@nil{#1}
+%    \end{macrocode}
+%\end{macro}
+% Tidying up.
+%    \begin{macrocode}
+\pgfopts@catcodes
+%    \end{macrocode}
+%
+%\Finale
+%
+%\iffalse
+%</package>
+%<*jawltxdoc>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{jawltxdoc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[final]{listings,graphicx,microtype}
+\usepackage[scaled=0.95]{helvet}
+\usepackage[version=3]{mhchem}
+\usepackage[osf]{mathpazo}
+\usepackage{booktabs,array,url,courier,xspace,etoolbox,varioref}
+\usepackage{upgreek,ifpdf,float,caption,longtable,babel}
+\floatstyle{plaintop}
+\restylefloat{table}
+\labelformat{figure}{\figurename~#1}
+\labelformat{table}{\tablename~#1}
+\ifpdf
+  \usepackage{embedfile}
+  \embedfile[%
+    stringmethod=escape,%
+    mimetype=plain/text,%
+    desc={LaTeX docstrip source archive for package `\jobname'}%
+    ]{\jobname.dtx}
+\fi
+\IfFileExists{\jobname.sty}
+  {\usepackage{\jobname}}{}
+\usepackage[numbered]{hypdoc}
+\setcounter{IndexColumns}{2}
+\newlength\LaTeXwidth
+\newlength\LaTeXoutdent
+\newlength\LaTeXgap
+\setlength\LaTeXgap{1em}
+\setlength\LaTeXoutdent{-0.15\textwidth}
+\newbox\lst@samplebox
+\edef\LaTeXexamplefile{\jobname.tmp}
+\lst@RequireAspects{writefile}
+\lstnewenvironment{LaTeXexample}[1][example]{%
+  \global\let\lst@intname\@empty
+  \ifcsname LaTeXcode#1\endcsname
+    \expandafter\let\expandafter\LaTeXcode
+      \csname LaTeXcode#1\endcsname
+    \expandafter\let\expandafter\LaTeXcodeend
+      \csname LaTeXcode#1end\endcsname
+  \else
+    \PackageError{jawltxdoc}
+      {Undefined example type `#1'}
+      \@ehd
+    \let\LaTeXcode\relax
+    \let\LaTeXcodeend\relax
+  \fi
+  \LaTeXcode}
+  {\lst@EndWriteFile
+   \LaTeXcodeend}
+\newcommand*{\LaTeXcodeexample}{%
+  \setbox\lst@samplebox=\hbox\bgroup
+  \LaTeXcodefloat}
+\let\LaTeXcoderesultonly\LaTeXcodeexample
+\newcommand*{\LaTeXcodeexampleend}{%
+  \egroup
+  \setlength\LaTeXwidth{\wd\lst@samplebox}%
+  \begin{list}{}{%
+    \setlength\itemindent{0pt}
+    \setlength\leftmargin\LaTeXoutdent
+    \setlength\rightmargin{0pt}}%
+    \item
+      \setlength\LaTeXoutdent{-0.15\textwidth}
+      \begin{minipage}[c]{%
+        \textwidth-\LaTeXwidth-\LaTeXoutdent-\LaTeXgap}
+        \LaTeXcodefloatend
+      \end{minipage}%
+      \hfill
+      \begin{minipage}[c]{\LaTeXwidth}%
+        \hbox to\linewidth{\box\lst@samplebox\hss}%
+      \end{minipage}%
+  \end{list}}
+\let\LaTeXcodenoexample\LaTeXcodeexample
+\newcommand*{\LaTeXcodenoexampleend}{%
+  \egroup
+  \setlength\LaTeXwidth{\wd\lst@samplebox}%
+  \begin{list}{}{%
+    \setlength\itemindent{0pt}
+    \setlength\leftmargin{0pt}
+    \setlength\rightmargin{0pt}}%
+    \item
+      \begin{minipage}[c]{\LaTeXwidth}
+        \hbox to\linewidth{\box\lst@samplebox\hss}%
+      \end{minipage}%
+  \end{list}}
+\newcommand*{\LaTeXcodefloat}{%
+  \setkeys{lst}{tabsize=4,gobble=3,breakindent=0pt,
+    basicstyle=\small\ttfamily,basewidth=0.51em,
+    keywordstyle=\color{blue}}%
+  \lst@BeginAlsoWriteFile{\LaTeXexamplefile}}
+\newcommand*{\LaTeXcodefloatend}{%
+  \MakePercentComment\catcode`\^^M=10\relax
+  \small
+  {\setkeys{lst}{SelectCharTable=\lst@ReplaceInput{\^\^I}%
+    {\lst@ProcessTabulator}}%
+    \leavevmode \input{\LaTeXexamplefile}}%
+  \MakePercentIgnore}
+\newcommand*{\LaTeXcoderesultonlyend}{\egroup\LaTeXcodefloatend}
+\lstnewenvironment{BibTeXexample}{%
+  \global\let\lst@intname\@empty
+  \setbox\lst@samplebox=\hbox\bgroup
+  \setkeys{lst}{tabsize=4,gobble=3,breakindent=0pt,
+    basicstyle=\small\ttfamily,basewidth=0.51em,
+    keywordstyle=\color{black}}
+  \lst@BeginAlsoWriteFile{\LaTeXexamplefile}}
+ {\lst@EndWriteFile
+   \LaTeXcodeexampleend}
+\newcommand*{\DescribeOption}{%
+  \leavevmode\@bsphack\begingroup\MakePrivateLetters
+  \Describe@Option}
+\newcommand*{\Describe@Option}[1]{\endgroup
+              \marginpar{\raggedleft\PrintDescribeEnv{#1}}%
+              \SpecialOptionIndex{#1}\@esphack\ignorespaces}
+\newcommand*{\SpecialOptionIndex}[1]{\@bsphack
+    \index{#1\actualchar{\protect\ttfamily#1}
+           (option)\encapchar usage}%
+    \index{options:\levelchar#1\actualchar{\protect\ttfamily#1}%
+      \encapchar usage}\@esphack}
+\newcommand*{\indexopt}[1]{\DescribeOption{#1}\opt{#1}}
+\newcommand*{\DescribeOptionInfo}[2]{%
+  \DescribeOption{#1}%
+  \opt{#1=\meta{#2}}\xspace}
+\newcommand*{\ofixarg}[1]{%
+  {\ttfamily[}%
+  \ifmmode \expandafter \nfss@text \fi
+  {%
+    \meta@font@select
+    \edef\meta@hyphen@restore{%
+      \hyphenchar\the\font\the\hyphenchar\font}%
+    \hyphenchar\font\m@ne
+    \language\l@nohyphenation
+    #1\/%
+    \meta@hyphen@restore
+    }%
+    {\ttfamily]}}
+\newcommand*{\pkg}[1]{\textsf{#1}}
+\newcommand*{\currpkg}{\pkg{\jobname}\xspace}
+\newcommand*{\opt}[1]{\texttt{#1}}
+\newcommand*{\defaultopt}[1]{\opt{\textbf{#1}}}
+\newcommand*{\file}[1]{\texttt{#1}}
+\newcommand*{\ext}[1]{\file{.#1}}
+\newcommand*{\latin}[1]{\emph{#1}}
+\newcommand*{\etc}{%
+  \@ifnextchar.
+    {\latin{etc}}
+    {\latin{etc}.\xspace}}
+\newcommand*{\eg}{%
+  \@ifnextchar.
+    {\latin{e.g}}
+    {\latin{e.g}.\xspace}}
+\newcommand*{\ie}{%
+  \@ifnextchar.
+    {\latin{i.e}}
+    {\latin{i.e}.\xspace}}
+\newcommand*{\etal}{%
+  \@ifnextchar.
+    {\latin{et~al.}}
+    {\latin{et~al}.\xspace}}
+\newcommand*{\AMS}{{\protect\usefont{OMS}{cmsy}{m}{n}%
+  A\kern-.1667em\lower.5ex\hbox{M}\kern-.125emS}}
+\providecommand*{\eTeX}{\ensuremath{\varepsilon}-\TeX}
+\DeclareRobustCommand*{\XeTeX}
+  {X\kern-.125em\lower.5ex\hbox{\reflectbox{E}}\kern-.1667em\TeX}
+\providecommand*{\CTAN}{\textsc{ctan}}
+\patchcmd{\@addmarginpar}
+  {\@latex@warning@no@line {Marginpar on page \thepage\space moved}}
+  {\relax}{}{}
+\newcounter{argument}
+\g@addto@macro\endmacro{\setcounter{argument}{0}}
+\newcommand*\darg[1]{%
+  \stepcounter{argument}%
+  {\ttfamily\char`\#\theargument~:~}#1\par\noindent\ignorespaces}
+\newcommand*\doarg[1]{%
+  \stepcounter{argument}%
+  {\ttfamily\makebox[0pt][r]{[}%
+   \char`\#\theargument]:~}#1\par\noindent\ignorespaces}
+%</jawltxdoc>
+%\fi
