@@ -169,9 +169,6 @@ tds: doc
 	mkdir -p $(TDSDIR)/doc/$(PACKAGEROOT)/
 	mkdir -p $(TDSDIR)/tex/$(PACKAGEROOT)/config/
 	mkdir -p $(TDSDIR)/source/$(PACKAGEROOT)/
-	cp -f *.bst $(TDSDIR)/bibtex/bst/$(PACKAGE)/ ; \
-	cp -f *.cfg $(TDSDIR)/tex/$(PACKAGEROOT)/config/ ; \
-	cp -f *.cls $(TDSDIR)/tex/$(PACKAGEROOT)/  ; \
 	cp -f *.dtx $(TDSDIR)/source/$(PACKAGEROOT)/ ; \
 	cp -f *.ins $(TDSDIR)/source/$(PACKAGEROOT)/ ; \
 	for I in $(INCLUDEPDF) ; do \
@@ -179,9 +176,7 @@ tds: doc
 	done ; \
 	cp -f *.sty $(TDSDIR)/tex/$(PACKAGEROOT)/ ; \
 	for I in $(INCLUDETEX); do \
-	  cp -f $$I.bib $(TDSDIR)/doc/$(PACKAGEROOT)/ ; \
 	  cp -f $$I.pdf $(TDSDIR)/doc/$(PACKAGEROOT)/ ; \
-	  cp -f $$I.tex $(TDSDIR)/doc/$(PACKAGEROOT)/ ; \
 	done ; \
 	for I in $(INCLUDETXT); do \
 	  cp -f $$I.txt $(TDSDIR)/doc/$(PACKAGEROOT)/ ; \
