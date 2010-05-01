@@ -402,14 +402,14 @@ This work consists of the file  pgfopts.dtx
 \newcommand*\pgfopts@current@option{}
 \newcommand*\pgfopts@check@class@options{%
   \ifpgfopts@process@class
-    \ifx\@classoptionlist\relax\else
+    \ifx\@classoptionslist\relax\else
       \expandafter\expandafter\expandafter
         \pgfopts@check@class@options@aux
     \fi
   \fi
 }
 \newcommand*\pgfopts@check@class@options@aux{%
-  \@for\pgfopts@current@option:=\@classoptionlist\do
+  \@for\pgfopts@current@option:=\@classoptionslist\do
     {%
       \pgfkeysifdefined
         {%
@@ -432,7 +432,8 @@ This work consists of the file  pgfopts.dtx
 %
 %\begin{macro}{\pgfopts@local@options}
 %\begin{macro}{\pgfopts@process@local@options}
-%\begin{macro}{\pgfopts@process@local@options@aux}
+%\begin{macro}{\pgfopts@process@local@options@aux@i}
+%\begin{macro}{\pgfopts@process@local@options@aux@ii}
 %\begin{macro}{\pgfopts@process@local@options@class}
 %\begin{macro}{\pgfopts@process@local@options@package}
 % The first step in processing local options is to see if any exist.
@@ -453,15 +454,20 @@ This work consists of the file  pgfopts.dtx
         \expandafter\endgroup
         \expandafter\def\expandafter\pgfopts@local@options
           \expandafter{\the\toks@}%
-        \pgfopts@process@local@options@aux
+        \pgfopts@process@local@options@aux@i
       }%
 }
-\newcommand*\pgfopts@process@local@options@aux{%
+\newcommand*\pgfopts@process@local@options@aux@i{%
   \ifx\@currext\@clsextension
     \expandafter\pgfopts@process@local@options@class
   \else
     \expandafter\pgfopts@process@local@options@package
   \fi
+  \ifx\pgfopts@options@clist\@empty\else
+    \expandafter\pgfopts@process@local@options@aux@ii
+  \fi
+}
+\newcommand*\pgfopts@process@local@options@aux@ii{%
   \begingroup
     \toks@\expandafter{\pgfopts@options@clist}%
     \edef\pgfopts@options@execute
@@ -498,9 +504,10 @@ This work consists of the file  pgfopts.dtx
 % set up from the global values.    
 %    \begin{macrocode}
 \newcommand*\pgfopts@process@local@options@package{%
-  \pgfopts@list@add\pgfopts@local@options
+  \pgfopts@list@add\pgfopts@options@clist\pgfopts@local@options
 }
 %    \end{macrocode}
+%\end{macro}
 %\end{macro}
 %\end{macro}
 %\end{macro}
