@@ -72,6 +72,7 @@ AUXFILES = \
 CLEAN = \
 	gz  \
 	ins \
+	pdf \
 	sty \
 	txt \
 	zip 
@@ -165,9 +166,8 @@ tds: doc
 	echo "Creating TDS archive"
 	mkdir -p $(TDSDIR)/
 	rm -rf $(TDSDIR)/*
-	mkdir -p $(TDSDIR)/bibtex/bst/$(PACKAGE)/
 	mkdir -p $(TDSDIR)/doc/$(PACKAGEROOT)/
-	mkdir -p $(TDSDIR)/tex/$(PACKAGEROOT)/config/
+	mkdir -p $(TDSDIR)/tex/$(PACKAGEROOT)/
 	mkdir -p $(TDSDIR)/source/$(PACKAGEROOT)/
 	cp -f *.dtx $(TDSDIR)/source/$(PACKAGEROOT)/ ; \
 	cp -f *.ins $(TDSDIR)/source/$(PACKAGEROOT)/ ; \
