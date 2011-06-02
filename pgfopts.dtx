@@ -65,7 +65,7 @@ See http://www.latex-project.org/lppl.txt
 \endpreamble
 \postamble
 
-Copyright (C) 2008,2010 by
+Copyright (C) 2008-2011 by
   Joseph Wright <joseph.wright@morningstar2.co.uk>
 
 It may be distributed and/or modified under the conditions of
@@ -200,6 +200,8 @@ This work consists of the file  pgfopts.dtx
 %
 %\changes{v1.0}{2008/06/26}{First public release}
 %\changes{v2.0}{2009/04/30}{Complete internal rewrite}
+%\changes{v2.1}{2011/06/02}{Allow for \texttt{.unknown} handler for
+%  class options}
 %
 %\begin{abstract}
 %  Using key--value options for packages and macros is a good way of
@@ -333,7 +335,7 @@ This work consists of the file  pgfopts.dtx
 %    \begin{macrocode}
 %<*package>
 \ProvidesClass{pgfopts}
-  [2010/05/01 v2.0 LaTeX package options with pgfkeys]
+  [2011/06/02 v2.1 LaTeX package options with pgfkeys]
 %    \end{macrocode} 
 %    
 % The only package requires is \pkg{pgfkeys} itself.
@@ -435,6 +437,7 @@ This work consists of the file  pgfopts.dtx
 %\begin{macro}{\pgfopts@process@local@options@aux@i}
 %\begin{macro}{\pgfopts@process@local@options@aux@ii}
 %\begin{macro}{\pgfopts@process@local@options@class}
+%\begin{macro}{\pgfopts@process@local@options@class@aux}
 %\begin{macro}{\pgfopts@process@local@options@package}
 % The first step in processing local options is to see if any exist.
 % This is done inside a group to avoid polluting the hash table. If 
@@ -449,8 +452,8 @@ This work consists of the file  pgfopts.dtx
     \@ifundefined{opt@\@currname.\@currext}%
       {\endgroup}%
       {%
-          \toks@\expandafter\expandafter\expandafter
-            {\csname opt@\@currname.\@currext\endcsname}%
+        \toks@\expandafter\expandafter\expandafter
+          {\csname opt@\@currname.\@currext\endcsname}%
         \expandafter\endgroup
         \expandafter\def\expandafter\pgfopts@local@options
           \expandafter{\the\toks@}%
@@ -484,10 +487,17 @@ This work consists of the file  pgfopts.dtx
 }
 %    \end{macrocode}
 % Options given for a class may not be applicable to the class itself,
-% and so they have to be checked. The option is then added either to
-% the list for processing now or two the list for packages to examine.   
+% and so they have to be checked. First, there is a simple test for an
+% unknown key handler: if it exists then there is no need to look at
+% each option separately.  
 %    \begin{macrocode}
-\newcommand*\pgfopts@process@local@options@class{%
+\newcommand*\pgfopts@process@local@options@class
+  {%
+    \pgfkeysifdefined{\pgfopts@key@path .unknown/.@cmd}%
+      {\pgfopts@list@add\pgfopts@options@clist\@classoptionslist}
+      {\pgfopts@process@local@options@class@aux}%
+  }
+\newcommand*\pgfopts@process@local@options@class@aux{%
   \@for\pgfopts@current@option:=\pgfopts@local@options\do{%
     \pgfkeysifdefined
       {%
@@ -507,6 +517,7 @@ This work consists of the file  pgfopts.dtx
   \pgfopts@list@add\pgfopts@options@clist\pgfopts@local@options
 }
 %    \end{macrocode}
+%\end{macro}
 %\end{macro}
 %\end{macro}
 %\end{macro}
