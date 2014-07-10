@@ -9,6 +9,9 @@ module = "pgfopts"
 -- .dtx is self-contained
 unpackfiles = {"*.dtx"}
 
+-- File extension here is slight non-standard
+txtfiles = {"*.md"}
+
 -- No tests for this bundle
 testfildir = ""
 
