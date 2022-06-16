@@ -14,7 +14,3 @@ txtfiles = {"*.md"}
 
 -- No tests for this bundle
 testfildir = ""
-
--- Find and run the build system
-kpse.set_program_name ("kpsewhich")
-dofile (kpse.lookup ("l3build.lua"))
